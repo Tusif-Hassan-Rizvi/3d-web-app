@@ -31,7 +31,7 @@ export default function Moon() {
     //light
     //pointlight
     const positionlight = new THREE.PointLight(0xffffff, 1, 100);
-    positionlight.position.set(0, 10, 10);
+    positionlight.position.set(10, 2, 0);
     positionlight.intensity = 1.5;
     scene.add(positionlight);
 
@@ -66,7 +66,7 @@ export default function Moon() {
     controls.enablePan = false;  //true/false
     controls.enableZoom = false;
     controls.autoRotate = true;
-    controls.autoRotateSpeed = 10;
+    controls.autoRotateSpeed = 5;
 
     //Resize
     window.addEventListener("resize", () => {
