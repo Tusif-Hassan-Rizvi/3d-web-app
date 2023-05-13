@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function Home() {
   const router = useRouter();
   useEffect(() => {
-    router.push('/Moon'); // Redirect to the '/about' page
+    router.push('/Moon'); // Redirect to the 'Moon' page
   }, []);
 
 
