@@ -14,6 +14,6 @@ yarn run dev
 
 App live in a production
 ```bash
-https://moon-three-pearl.vercel.app/Moon
+https://solar-system-flame.vercel.app/
 ```
 
