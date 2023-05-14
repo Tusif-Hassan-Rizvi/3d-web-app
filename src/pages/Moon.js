@@ -13,11 +13,12 @@ export default function Moon() {
     // create a scene
     const scene = new THREE.Scene();
 
-    // create a sphere
-    const geometry = new THREE.SphereGeometry(3, 64, 64);
+    // create a sphere Moon
+    const geometry = new THREE.SphereGeometry(4, 64, 64);
     const material = new THREE.MeshStandardMaterial({
-      color: "#00ff83",
-      roughness:0.5
+      // color: "#00ff83",
+      roughness: 1,
+      map: new THREE.TextureLoader().load("./Moon8K.jpg"),
     });
     const sphere = new THREE.Mesh(geometry, material);
     scene.add(sphere);
@@ -28,12 +29,19 @@ export default function Moon() {
       height: window.innerHeight,
     };
 
+    // add background on scece
+    const spaceTexture = new THREE.TextureLoader().load("./Space.jpg");
+    scene.background = spaceTexture;
+
     //light
+    // ambient light
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+    scene.add(ambientLight);
+
     //pointlight
-    const positionlight = new THREE.PointLight(0xffffff, 1, 100);
-    positionlight.position.set(10, 2, 0);
-    positionlight.intensity = 1.5;
-    scene.add(positionlight);
+    // const positionlight = new THREE.PointLight(0xffffff, 1, 100);
+    // positionlight.position.set(30, 0, 0);
+    // scene.add(positionlight);
 
     // pointLightHelper
     // const sphereSize = 1;
@@ -63,10 +71,10 @@ export default function Moon() {
     //controls
     const controls = new OrbitControls(camera, canvas);
     controls.enableDamping = true;
-    controls.enablePan = false;  //true/false
-    controls.enableZoom = false;
+    controls.enablePan = false; //true/false
+    controls.enableZoom = true;
     controls.autoRotate = true;
-    controls.autoRotateSpeed = 5;
+    controls.autoRotateSpeed = 3;
 
     //Resize
     window.addEventListener("resize", () => {
@@ -90,31 +98,7 @@ export default function Moon() {
     //timeline
     const tl = gsap.timeline({ default: { duration: 1 } });
     tl.fromTo(sphere.scale, { z: 0, x: 0, y: 0 }, { z: 1, x: 1, y: 1 });
+  }, []);
 
-    // mouse animation color
-    let MouseDown = false;
-    let rgb = [];
-    window.addEventListener("mousedown", () => (MouseDown = true));
-    window.addEventListener("mouseup", () => (MouseDown = true));
-
-    window.addEventListener("mousemove", (e) => {
-      if (MouseDown) {
-        rgb = [
-          Math.round((e.pageX / sizes.width) * 255),
-          Math.round((e.pageY / sizes.height) * 255),
-          150,
-        ];
-
-        // animation
-        let newcolor = new THREE.Color(`rgb(${rgb.join(",")})`);
-        gsap.to(sphere.material.color, {
-          r: newcolor.r,
-          g: newcolor.g,
-          b: newcolor.b,
-        });
-      }
-    });
-  });
-
-  return <canvas className={style.canvasBox} ref={canvasRef} />;
+  return( <canvas className={style.canvasBox} ref={canvasRef} />)
 }
